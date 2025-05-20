@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive PIXI.js UI</title>
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@7/dist/pixi.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f3f4f6; /* Light background */
+        }
+        #controls {
+            margin: 20px;
+            padding: 15px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #controls input, #controls button {
+            margin: 5px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        #controls input {
+            width: 300px;
+            border: 1px solid #ccc;
+        }
+        #controls button {
+            cursor: pointer;
+            background-color: #4caf50; /* Green button */
+            color: white;
+        }
+        #controls button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+        canvas {
+            border: 5px solid #4caf50;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Control Panel -->
+    <div id="controls">
+        <input type="text" id="textInput" placeholder="Enter text to display">
+        <button id="displayButton">Display Text</button>
+        <button id="deleteButton">Delete Text</button>
+    </div>
+
+    <script>
+        // Create the PIXI.js application
+        const app = new PIXI.Application({
+            width: 800, 
+            height: 600, 
+            backgroundColor: 0x87CEEB // Sky blue background
+        });
+        document.body.appendChild(app.view);
+
+        // Create a rounded text background
+        const textBackground = new PIXI.Graphics();
+        textBackground.beginFill(0xffffff); // White background for text
+        textBackground.drawRoundedRect(250, 250, 300, 100, 20); // x, y, width, height, corner radius
+        textBackground.endFill();
+        app.stage.addChild(textBackground);
+
+        // Create a PIXI.Text object
+        const textDisplay = new PIXI.Text('Welcome!', {
+            fontFamily: 'Arial',
+            fontSize: 28,
+            fill: '#000000', // Black text
+            align: 'center'
+        });
+        textDisplay.anchor.set(0.5);
+        textDisplay.x = app.screen.width / 2;
+        textDisplay.y = app.screen.height / 2;
+        app.stage.addChild(textDisplay);
+
+        // Hook up the HTML input and "Display Text" button
+        const textInput = document.getElementById('textInput');
+        const displayButton = document.getElementById('displayButton');
+
+        displayButton.addEventListener('click', () => {
+            const inputText = textInput.value.trim();
+            if (inputText) {
+                textDisplay.text = inputText; // Update the text on the canvas
+            } else {
+                alert('Please enter some text to display!');
+            }
+        });
+
+        // Hook up the "Delete Text" button
+        const deleteButton = document.getElementById('deleteButton');
+
+        deleteButton.addEventListener('click', () => {
+            textDisplay.text = ''; // Clear the text on the canvas
+        });
+    </script>
+</body>
+</html>

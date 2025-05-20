@@ -1,0 +1,10 @@
+mvn clean install
+cd pacman
+mvn javafx:run -Dexec.mainClass=ru.job4j.packman.PacmanGame
+
+
+
+
+
+
+mvn javafx:run -Dexec.mainClass=ru.job4j.tetris.Main

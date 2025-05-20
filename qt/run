@@ -1,0 +1,7 @@
+g++ -fPIC main.cpp -o QtApp `pkg-config --cflags --libs Qt5Widgets`
+
+./QtApp
+
+test
+./test_interactive_app
+
